@@ -9,7 +9,7 @@ import { MoradorService } from '../services/morador.service';
 })
 export class DownloadDadosPage implements OnInit {
 
-  usuarios: any[] = [];
+  moradores: any[] = [];
 
   constructor(
     private moradorService: MoradorService,
@@ -21,8 +21,8 @@ export class DownloadDadosPage implements OnInit {
   }
 
   getDadosUsuarios() {
-    this.usuarios = JSON.parse(localStorage.getItem('usuarios'));
-    console.log(this.usuarios)
+    this.moradores = JSON.parse(localStorage.getItem('usuarios'));
+    console.log(this.moradores)
   }
 
   fazerDownload() {
