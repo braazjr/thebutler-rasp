@@ -18,15 +18,25 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'download-dados',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../download-dados/download-dados.module').then(m => m.DownloadDadosPageModule)
+          }
+        ]
+      },
+      {
         path: '',
-        redirectTo: '/tabs/inicia-viagem',
+        redirectTo: '/tabs/download-dados',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/inicia-viagem',
+    redirectTo: '/tabs/download-dados',
     pathMatch: 'full'
   }
 ];

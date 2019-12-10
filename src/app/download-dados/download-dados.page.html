@@ -1,0 +1,13 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>download-dados</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  {{ !moradores || moradores.length == 0 ? '0' : moradores.length }} moradores transferidos!
+
+  <ion-button color="primary" size="small" (click)="fazerDownload()">
+    Fazer download
+  </ion-button>
+</ion-content>

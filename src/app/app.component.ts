@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,27 @@ import { Platform } from '@ionic/angular';
 export class AppComponent {
   constructor(
     private platform: Platform,
+    private authService: AuthService,
+    private toastController: ToastController
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.authService.login('ebraz', 'braz..')
+        .subscribe(
+          () => null,
+          async error => {
+            console.error(error);
+
+            const toast = await this.toastController.create({
+              message: 'Houve um problema de conexão',
+              duration: 100000
+            });
+            toast.present();
+          }
+        )
     });
   }
 }

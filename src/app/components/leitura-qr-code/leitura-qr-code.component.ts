@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ModalController } from '@ionic/angular';
+import { SharedService } from 'src/app/services/shared.service';
+
 import QRScanner from 'qr-code-scanner';
 
 @Component({
@@ -11,7 +14,10 @@ export class LeituraQrCodeComponent implements OnInit {
 
   countTentativas: number = 0;
 
-  constructor() { }
+  constructor(
+    private modalController: ModalController,
+    private sharedService: SharedService
+  ) { }
 
   ngOnInit() {
     this.showQRScanner();
@@ -25,8 +31,9 @@ export class LeituraQrCodeComponent implements OnInit {
     QRScanner.initiate({
       onResult: (result) => {
         console.info(result);
+        this.consultaUsuario(result);
       },
-      onTimeout: (timeout) => {
+      onTimeout: () => {
         console.info('-- tempo esgotado')
         this.countTentativas++;
         console.log(this.countTentativas);
@@ -36,5 +43,18 @@ export class LeituraQrCodeComponent implements OnInit {
       },
       timeout: 10000,
     });
+  }
+
+  async consultaUsuario(codigo) {
+    const usuarios = JSON.parse(localStorage.getItem('usuarios'));
+    // const usuarioEncontrado = usuarios.find(usuario => usuario.codigo == codigo);
+    const usuarioEncontrado = usuarios[0];
+    console.log('-- usuario encontrado', usuarioEncontrado);
+
+    if (!usuarioEncontrado) {
+      this.sharedService.showToast('Usuário não encontrado!', 5000)
+    }
+
+    this.modalController.dismiss(usuarioEncontrado);
   }
 }

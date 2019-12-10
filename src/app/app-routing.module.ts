@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'inicia-viagem',
     loadChildren: () => import('./inicia-viagem/inicia-viagem.module').then( m => m.IniciaViagemPageModule)
+  },
+  {
+    path: 'download-dados',
+    loadChildren: () => import('./download-dados/download-dados.module').then( m => m.DownloadDadosPageModule)
   }
 ];
 @NgModule({
