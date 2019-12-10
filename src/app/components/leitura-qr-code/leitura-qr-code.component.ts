@@ -31,7 +31,8 @@ export class LeituraQrCodeComponent implements OnInit {
     QRScanner.initiate({
       onResult: (result) => {
         console.info(result);
-        this.consultaUsuario(result);
+        // this.consultaUsuario(result);
+        this.modalController.dismiss(result);
       },
       onTimeout: () => {
         console.info('-- tempo esgotado')
@@ -46,15 +47,15 @@ export class LeituraQrCodeComponent implements OnInit {
   }
 
   async consultaUsuario(codigo) {
-    const usuarios = JSON.parse(localStorage.getItem('usuarios'));
-    // const usuarioEncontrado = usuarios.find(usuario => usuario.codigo == codigo);
-    const usuarioEncontrado = usuarios[0];
-    console.log('-- usuario encontrado', usuarioEncontrado);
+    const moradores = JSON.parse(localStorage.getItem('moradores'));
+    const moradorEncontrado = moradores.find(usuario => usuario.codigo == codigo);
+    // const moradorEncontrado = moradores[0];
+    console.log('-- usuario encontrado', moradorEncontrado);
 
-    if (!usuarioEncontrado) {
+    if (!moradorEncontrado) {
       this.sharedService.showToast('Usuário não encontrado!', 5000)
     }
 
-    this.modalController.dismiss(usuarioEncontrado);
+    this.modalController.dismiss(moradorEncontrado);
   }
 }
