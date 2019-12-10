@@ -133,6 +133,7 @@ export class IniciaViagemPage implements OnInit {
     console.info('-- rota selecionada', rota);
     this.viagem.rota = rota;
     this.viagem.dataHoraInicio = new Date();
-    localStorage.setItem('viagem-atual', this.viagem);
+    localStorage.setItem('viagem-atual', JSON.stringify(this.viagem));
+    this.sharedService.showToast('Viagem iniciada!');
   }
 }
