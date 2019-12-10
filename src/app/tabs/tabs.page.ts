@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  iniciaFinalizaText = 'Inicia'
+
+  constructor() {
+    this.iniciaFinalizaText = localStorage.getItem('viagem-atual') ? 'Finaliza' : 'Inicia'
+  }
 
 }

@@ -76,7 +76,7 @@ export class IniciaViagemPage implements OnInit {
         }, {
           text: 'Sim',
           handler: () => {
-            console.log('Confirm Okay');
+            this.fechaViagem();
           }
         }
       ]
@@ -131,9 +131,26 @@ export class IniciaViagemPage implements OnInit {
 
   criaViagem(rota) {
     console.info('-- rota selecionada', rota);
+
     this.viagem.rota = rota;
     this.viagem.dataHoraInicio = new Date();
     localStorage.setItem('viagem-atual', JSON.stringify(this.viagem));
+
     this.sharedService.showToast('Viagem iniciada!');
+  }
+
+  fechaViagem() {
+    this.viagem.dataHoraFim = new Date();
+    let viagensTemp = JSON.parse(localStorage.getItem('viagens-temp'));
+    if (!viagensTemp) {
+      viagensTemp = [];
+    }
+
+    viagensTemp.push(this.viagem);
+    localStorage.setItem('viagens-temp', JSON.stringify(viagensTemp));
+    localStorage.removeItem('viagem-atual');
+    this.viagem = undefined;
+
+    this.sharedService.showToast('Viagem finalizada!');
   }
 }
