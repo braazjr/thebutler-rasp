@@ -7,10 +7,16 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  iniciaFinalizaText = 'Inicia'
+  iniciaFinalizaText = 'Inicia';
+  hasViagemAtual: boolean = false;
 
   constructor() {
-    this.iniciaFinalizaText = localStorage.getItem('viagem-atual') ? 'Finaliza' : 'Inicia'
+    if (localStorage.getItem('viagem-atual')) {
+      this.iniciaFinalizaText = 'Finaliza';
+      this.hasViagemAtual = true;
+    } else {
+      this.iniciaFinalizaText = 'Inicia';
+      this.hasViagemAtual = false;
+    }
   }
-
 }

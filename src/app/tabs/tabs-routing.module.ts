@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { TabsGuardGuard } from './tabs-guard.guard';
 
 const routes: Routes = [
   {
     path: 'tabs',
     component: TabsPage,
+    canActivate: [TabsGuardGuard],
     children: [
       {
         path: 'inicia-viagem',
@@ -24,6 +26,16 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../download-dados/download-dados.module').then(m => m.DownloadDadosPageModule)
+          }
+        ]
+      },
+      {
+        path: 'embarque-moradores',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../embarque-moradores/embarque-moradores.module').then(m => m.EmbarqueMoradoresPageModule)
           }
         ]
       },

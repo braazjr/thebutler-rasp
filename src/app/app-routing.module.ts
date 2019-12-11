@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'download-dados',
     loadChildren: () => import('./download-dados/download-dados.module').then( m => m.DownloadDadosPageModule)
+  },
+  {
+    path: 'embarque-moradores',
+    loadChildren: () => import('./embarque-moradores/embarque-moradores.module').then( m => m.EmbarqueMoradoresPageModule)
   }
 ];
 @NgModule({

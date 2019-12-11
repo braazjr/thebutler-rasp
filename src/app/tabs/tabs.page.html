@@ -6,6 +6,11 @@
       <ion-label>{{iniciaFinalizaText}} viagem</ion-label>
     </ion-tab-button>
 
+    <ion-tab-button tab="embarque-moradores" *ngIf="hasViagemAtual">
+      <ion-icon name="camera"></ion-icon>
+      <ion-label>Embarque moradores</ion-label>
+    </ion-tab-button>
+
     <ion-tab-button tab="download-dados">
       <ion-icon name="download"></ion-icon>
       <ion-label>Download de dados</ion-label>
