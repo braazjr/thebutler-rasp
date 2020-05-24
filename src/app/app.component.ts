@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { Platform, ToastController } from '@ionic/angular';
 import { AuthService } from './services/auth.service';
+import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private authService: AuthService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private network: Network
   ) {
     this.initializeApp();
   }
@@ -21,7 +23,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.authService.login('juliene.ccorrea@gmail.com', 'juliene.ccorrea@gmail.com')
         .subscribe(
-          () => null,
+          () => {
+            this.initNetworkConfig()
+          },
           async error => {
             console.error(error);
 
@@ -32,6 +36,16 @@ export class AppComponent {
             toast.present();
           }
         )
+    });
+  }
+
+  initNetworkConfig() {
+    this.network.onDisconnect().subscribe(() => {
+      console.log('network was disconnected :-(');
+    });
+
+    this.network.onConnect().subscribe(() => {
+      console.log('network connected!');
     });
   }
 }

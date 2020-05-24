@@ -1,5 +1,7 @@
 {
   "name": "the-butler-rasp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
