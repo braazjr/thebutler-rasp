@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -12,26 +12,23 @@ export class AuthService {
   oauthTokenUrl = `${environment.urlSpring}/oauth/token`;
   jwtPayload: any;
   tokensRenokeUrl = `${environment.urlSpring}/tokens/revoke`;
+  hds = new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': 'Basic dGhlYnV0bGVyX2FuZ3VsYXI6dGhlYnV0bGVyX2FuZ3VsYXI='
+  });
 
   constructor(
     private http: HttpClient,
     private router: Router) { }
 
   login(usuario: String, senha: String): Observable<void> {
-    const hds = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic cmFzcDpyYXNw'
-    });
-
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
 
     return this.http.post(this.oauthTokenUrl, body,
-      { headers: hds, withCredentials: true })
+      { headers: this.hds, withCredentials: true })
       .pipe(
-        switchMap(response => {
-          this.armazenarToken(response['access_token']);
-
-          return Promise.resolve();
+        map(response => {
+          this.armazenarTokenAndRefreshToken(response as any);
         }),
         catchError(response => {
           if (response.status === 400 && response.error === 'invalid_grant') {
@@ -43,8 +40,9 @@ export class AuthService {
       )
   }
 
-  private armazenarToken(token: string) {
-    localStorage.setItem('token', token);
+  private armazenarTokenAndRefreshToken(jwt: string) {
+    localStorage.setItem('token', jwt['access_token']);
+    localStorage.setItem('refreshToken', jwt['refresh_token']);
   }
 
   logout() {
@@ -66,27 +64,18 @@ export class AuthService {
   }
 
   obterNovoAccessToken() {
-    const hds = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic YW5ndWxhcjpAbmd1bEByMA=='
-    });
-
-    const body = 'grant_type=refresh_token';
+    const body = `grant_type=refresh_token&refresh_token=${localStorage.getItem('refreshToken')}`;
 
     return this.http.post(this.oauthTokenUrl, body,
-      { headers: hds, withCredentials: true })
+      { headers: this.hds, withCredentials: true })
       .pipe(
-        switchMap(response => {
-          this.armazenarToken(response['access_token']);
-
-          console.info('-- novo access token criado');
-
-          return Promise.resolve(null);
+        map(response => {
+          this.armazenarTokenAndRefreshToken(response as any);
         }),
         catchError(error => {
           console.info('Erro ao renovar token.', error);
           return Promise.resolve(null);
         })
-      );
+      )
   }
 }

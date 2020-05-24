@@ -4,6 +4,7 @@ import { LeituraQrCodeComponent } from '../components/leitura-qr-code/leitura-qr
 import { UsuarioService } from '../services/usuario.service';
 import { SharedService } from '../services/shared.service';
 import { RotaService } from '../services/rota.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicia-viagem',
@@ -20,7 +21,8 @@ export class IniciaViagemPage implements OnInit {
     private sharedService: SharedService,
     private alertController: AlertController,
     private actionSheetController: ActionSheetController,
-    private rotaService: RotaService
+    private rotaService: RotaService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -41,8 +43,7 @@ export class IniciaViagemPage implements OnInit {
         if (data.data) {
           console.info('-- motorista informado', data.data);
 
-          // this.usuarioService.pesquisarMotorista(data.data)
-          this.usuarioService.pesquisarMotorista(1001)
+          this.usuarioService.pesquisarMotorista(data.data)
             .subscribe(result => {
               if (!result) {
                 this.sharedService.showToast('Motorista não encontrado!', 10000)
@@ -52,7 +53,7 @@ export class IniciaViagemPage implements OnInit {
                 if (this.viagem) {
                   this.finalizaViagem();
                 } else {
-                  this.viagem = { motorista: result }
+                  this.viagem = { motoristaId: result['id'] }
                   this.iniciaViagem();
                 }
               }
@@ -132,11 +133,12 @@ export class IniciaViagemPage implements OnInit {
   criaViagem(rota) {
     console.info('-- rota selecionada', rota);
 
-    this.viagem.rota = rota;
+    this.viagem.rotaId = rota.id;
     this.viagem.dataHoraInicio = new Date();
     localStorage.setItem('viagem-atual', JSON.stringify(this.viagem));
 
     this.sharedService.showToast('Viagem iniciada!');
+    this.router.navigate(['/tabs/embarque-moradores']);
   }
 
   fechaViagem() {

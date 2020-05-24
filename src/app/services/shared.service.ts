@@ -28,4 +28,10 @@ export class SharedService {
     });
     toast.present();
   }
+
+  getMoradores() {
+    const moradores = JSON.parse(localStorage.getItem('moradores'));
+    console.log(moradores)
+    return moradores
+  }
 }

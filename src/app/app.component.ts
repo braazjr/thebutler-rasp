@@ -19,7 +19,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.authService.login('ebraz', 'braz..')
+      this.authService.login('juliene.ccorrea@gmail.com', 'juliene.ccorrea@gmail.com')
         .subscribe(
           () => null,
           async error => {

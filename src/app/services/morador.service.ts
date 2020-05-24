@@ -16,7 +16,7 @@ export class MoradorService {
   ) { }
 
   downloadMoradores() {
-    return this.http.get(`${environment.urlSpring}/rasp/usuarios/rasp-version`,
+    return this.http.get(`${environment.urlSpring}/rasp/moradores`,
       { withCredentials: true, headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
     ).pipe(
       catchError(error => {

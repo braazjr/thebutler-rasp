@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { LeituraQrCodeComponent } from '../components/leitura-qr-code/leitura-qr-code.component';
 import { SharedService } from '../services/shared.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-embarque-moradores',
   templateUrl: './embarque-moradores.page.html',
@@ -31,25 +33,25 @@ export class EmbarqueMoradoresPage implements OnInit {
           console.info('-- morador informado', data.data);
 
           // this.checkMorador(data.data);
-          this.checkMorador(2);
+          this.checkMorador(data.data);
         }
       });
   }
 
   checkMorador(data: any) {
-    const moradores = JSON.parse(localStorage.getItem('usuarios'));
-    const morador = moradores.find(mor => mor.viewApartamentosMoradoresID.idMorador == data);
+    const moradores = JSON.parse(localStorage.getItem('moradores'));
+    const morador = moradores.find(mor => mor.id == data);
 
     if (morador) {
       const viagemAtual = JSON.parse(localStorage.getItem('viagem-atual'));
-      if (viagemAtual && viagemAtual.moradores && viagemAtual.moradores.find(mor => mor.viewApartamentosMoradoresID.idMorador == morador.viewApartamentosMoradoresID.idMorador)) {
+      if (viagemAtual && viagemAtual.passageiros && viagemAtual.passageiros.find(pas => pas.id == morador.id)) {
         this.sharedService.showToast('Morador já embarcou!');
       } else if (viagemAtual) {
-        if (!viagemAtual.moradores) {
-          viagemAtual.moradores = [];
+        if (!viagemAtual.passageiros) {
+          viagemAtual.passageiros = [];
         }
 
-        viagemAtual.moradores.push(morador);
+        viagemAtual.passageiros.push({passageiroId: morador.id, horario: moment().format('HH:mm')});
         localStorage.setItem('viagem-atual', JSON.stringify(viagemAtual));
         this.sharedService.showToast('Morador registrado!');
       }

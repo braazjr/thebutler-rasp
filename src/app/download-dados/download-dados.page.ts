@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { MoradorService } from '../services/morador.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-download-dados',
@@ -13,16 +14,12 @@ export class DownloadDadosPage implements OnInit {
 
   constructor(
     private moradorService: MoradorService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit() {
-    this.getDadosUsuarios();
-  }
-
-  getDadosUsuarios() {
-    this.moradores = JSON.parse(localStorage.getItem('usuarios'));
-    console.log(this.moradores)
+    this.moradores = this.sharedService.getMoradores()
   }
 
   fazerDownload() {
@@ -31,7 +28,7 @@ export class DownloadDadosPage implements OnInit {
       .subscribe(async data => {
         console.info('download usuários', data);
         localStorage.setItem('usuarios', JSON.stringify(data));
-        this.getDadosUsuarios();
+        this.moradores = this.sharedService.getMoradores()
 
         const toast = await this.toastController.create({
           message: 'Base de usuários atualizada',
