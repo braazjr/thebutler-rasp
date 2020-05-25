@@ -1,13 +1,16 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>download-dados</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-content>
-  {{ !moradores || moradores.length == 0 ? '0' : moradores.length }} moradores transferidos!
-
-  <ion-button color="primary" size="small" (click)="fazerDownload()">
-    Fazer download
-  </ion-button>
+<ion-content class="ion-padding ion-text-center">
+  <ion-grid class="center">
+    <ion-row>
+      <ion-col>
+        {{ !moradores || moradores.length == 0 ? '0' : moradores.length }} moradores transferidos!
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" (click)="fazerDownload()">
+          Fazer download
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

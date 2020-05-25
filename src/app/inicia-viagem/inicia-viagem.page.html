@@ -1,9 +1,11 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>inicia-viagem</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-content>
-  <ion-button color="primary" size="small" (click)="iniciaFinalizaViagem()">{{viagem ? 'Finalize' : 'Inicie'}} a viagem</ion-button>
+<ion-content class="ion-text-center">
+  <ion-grid class="center">
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" (click)="iniciaFinalizaViagem()">
+          {{viagem ? 'Finalize' : 'Inicie'}} a viagem
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

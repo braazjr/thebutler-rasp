@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SharedService } from 'src/app/services/shared.service';
 
-import QRScanner from 'qr-code-scanner';
+import { QRScanner } from 'qr-code-scanner';
 
 @Component({
   selector: 'app-leitura-qr-code',
