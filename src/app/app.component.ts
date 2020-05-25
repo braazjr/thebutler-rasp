@@ -21,21 +21,11 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.authService.login('juliene.ccorrea@gmail.com', 'juliene.ccorrea@gmail.com')
-        .subscribe(
-          () => {
-            this.initNetworkConfig()
-          },
-          async error => {
-            console.error(error);
-
-            const toast = await this.toastController.create({
-              message: 'Houve um problema de conexão',
-              duration: 100000
-            });
-            toast.present();
-          }
-        )
+      if (this.platform.is('android')) {
+        this.initNetworkConfig()
+      } else {
+        this.login()
+      }
     });
   }
 
@@ -45,7 +35,23 @@ export class AppComponent {
     });
 
     this.network.onConnect().subscribe(() => {
-      console.log('network connected!');
+      this.login()
     });
+  }
+
+  login() {
+    this.authService.login('juliene.ccorrea@gmail.com', 'juliene.ccorrea@gmail.com')
+      .subscribe(
+        () => { },
+        async error => {
+          console.error(error);
+
+          const toast = await this.toastController.create({
+            message: 'Houve um problema de conexão',
+            duration: 100000
+          });
+          toast.present();
+        }
+      )
   }
 }
