@@ -26,8 +26,8 @@ export class DownloadDadosPage implements OnInit {
     console.info('-- iniciando download de dados')
     this.moradorService.downloadMoradores()
       .subscribe(async data => {
-        console.info('download usuários', data);
-        localStorage.setItem('usuarios', JSON.stringify(data));
+        console.info('download moradores', data);
+        localStorage.setItem('moradores', JSON.stringify(data));
         this.moradores = this.sharedService.getMoradores()
 
         const toast = await this.toastController.create({
