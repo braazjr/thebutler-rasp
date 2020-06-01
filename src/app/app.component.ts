@@ -40,18 +40,6 @@ export class AppComponent {
   }
 
   login() {
-    this.authService.login('juliene.ccorrea@gmail.com', 'juliene.ccorrea@gmail.com')
-      .subscribe(
-        () => { },
-        async error => {
-          console.error(error);
-
-          const toast = await this.toastController.create({
-            message: 'Houve um problema de conexão',
-            duration: 100000
-          });
-          toast.present();
-        }
-      )
+    this.authService.loginAuto()
   }
 }

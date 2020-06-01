@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { SharedService } from './shared.service';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class UsuarioService {
     ).pipe(
       catchError(error => {
         this.sharedService.showErrors(error, `Carregando moradores!`);
-        return Observable.throw(error);
+        return throwError(error);
       })
     );
   }

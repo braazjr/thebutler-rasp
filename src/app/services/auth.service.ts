@@ -24,10 +24,12 @@ export class AuthService {
   login(usuario: String, senha: String): Observable<void> {
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
 
+    console.info(`-- realizando login com o usuário ${usuario}`)
     return this.http.post(this.oauthTokenUrl, body,
       { headers: this.hds, withCredentials: true })
       .pipe(
         map(response => {
+          console.info('-- usuário autenticado')
           this.armazenarTokenAndRefreshToken(response as any);
         }),
         catchError(response => {
@@ -77,5 +79,8 @@ export class AuthService {
           return Promise.resolve(null);
         })
       )
+  }
+  loginAuto() {
+    return this.login('juliene.ccorrea@gmail.com', 'juliene.ccorrea@gmail.com')
   }
 }
