@@ -8,15 +8,15 @@ const routes: Routes = [
   },
   {
     path: 'inicia-viagem',
-    loadChildren: () => import('./inicia-viagem/inicia-viagem.module').then( m => m.IniciaViagemPageModule)
+    loadChildren: () => import('./pages/inicia-viagem/inicia-viagem.module').then( m => m.IniciaViagemPageModule)
   },
   {
     path: 'download-dados',
-    loadChildren: () => import('./download-dados/download-dados.module').then( m => m.DownloadDadosPageModule)
+    loadChildren: () => import('./pages/download-dados/download-dados.module').then( m => m.DownloadDadosPageModule)
   },
   {
     path: 'embarque-moradores',
-    loadChildren: () => import('./embarque-moradores/embarque-moradores.module').then( m => m.EmbarqueMoradoresPageModule)
+    loadChildren: () => import('./pages/embarque-moradores/embarque-moradores.module').then( m => m.EmbarqueMoradoresPageModule)
   }
 ];
 @NgModule({

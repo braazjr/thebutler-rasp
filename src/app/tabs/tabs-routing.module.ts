@@ -15,7 +15,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../inicia-viagem/inicia-viagem.module').then(m => m.IniciaViagemPageModule)
+              import('../pages/inicia-viagem/inicia-viagem.module').then(m => m.IniciaViagemPageModule)
           }
         ]
       },
@@ -25,7 +25,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../download-dados/download-dados.module').then(m => m.DownloadDadosPageModule)
+              import('../pages/download-dados/download-dados.module').then(m => m.DownloadDadosPageModule)
           }
         ]
       },
@@ -35,7 +35,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../embarque-moradores/embarque-moradores.module').then(m => m.EmbarqueMoradoresPageModule)
+              import('../pages/embarque-moradores/embarque-moradores.module').then(m => m.EmbarqueMoradoresPageModule)
           }
         ]
       },
