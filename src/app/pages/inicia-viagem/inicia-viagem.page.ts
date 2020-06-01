@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController, ActionSheetController } from '@ionic/angular';
-import { LeituraQrCodeComponent } from '../components/leitura-qr-code/leitura-qr-code.component';
-import { UsuarioService } from '../services/usuario.service';
-import { SharedService } from '../services/shared.service';
-import { RotaService } from '../services/rota.service';
+import { LeituraQrCodeComponent } from '../../components/leitura-qr-code/leitura-qr-code.component';
+import { UsuarioService } from '../../services/usuario.service';
+import { SharedService } from '../../services/shared.service';
+import { RotaService } from '../../services/rota.service';
 import { Router } from '@angular/router';
 
 @Component({

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { DownloadDadosPageRoutingModule } from './download-dados-routing.module';
 
 import { DownloadDadosPage } from './download-dados.page';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DownloadDadosPageRoutingModule
+    DownloadDadosPageRoutingModule,
+    SharedModule
   ],
   declarations: [DownloadDadosPage]
 })

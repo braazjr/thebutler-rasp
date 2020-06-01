@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EmbarqueMoradoresPageRoutingModule } from './embarque-moradores-routing.module';
 
 import { EmbarqueMoradoresPage } from './embarque-moradores.page';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [

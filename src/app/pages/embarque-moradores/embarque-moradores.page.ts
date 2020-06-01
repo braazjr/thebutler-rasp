@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { LeituraQrCodeComponent } from '../components/leitura-qr-code/leitura-qr-code.component';
-import { SharedService } from '../services/shared.service';
+import { LeituraQrCodeComponent } from '../../components/leitura-qr-code/leitura-qr-code.component';
+import { SharedService } from '../../services/shared.service';
 
 import * as moment from 'moment';
 

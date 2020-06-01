@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { MoradorService } from '../services/morador.service';
-import { SharedService } from '../services/shared.service';
+import { MoradorService } from '../../services/morador.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-download-dados',
