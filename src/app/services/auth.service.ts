@@ -80,6 +80,7 @@ export class AuthService {
         })
       )
   }
+
   loginAuto() {
     return this.login('juliene.ccorrea@gmail.com', 'juliene.ccorrea@gmail.com')
   }

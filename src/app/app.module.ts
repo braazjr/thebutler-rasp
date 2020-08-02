@@ -10,7 +10,7 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Network } from '@ionic-native/network/ngx';
 // import { QRScanner } from '@ionic-native/qr-scanner/ngx';
-// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AuthInterceptorModule } from './shared/security/auth-interceptor/auth-interceptor.module';
 import { LoadingUtil } from './utils/loading.util';
 
@@ -29,7 +29,7 @@ import { LoadingUtil } from './utils/loading.util';
     AuthService,
     Network,
     // QRScanner, 
-    // BarcodeScanner,
+    BarcodeScanner,
     LoadingUtil
   ],
   bootstrap: [AppComponent]

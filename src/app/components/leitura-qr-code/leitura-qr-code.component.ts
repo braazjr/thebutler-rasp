@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 import { SharedService } from 'src/app/services/shared.service';
+import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
-import { QRScanner } from 'qr-code-scanner';
+// import QRScanner from 'qr-code-scanner';
 
 @Component({
   selector: 'app-leitura-qr-code',
@@ -16,7 +17,8 @@ export class LeituraQrCodeComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private barcodeScanner: BarcodeScanner
   ) { }
 
   ngOnInit() {
@@ -28,21 +30,23 @@ export class LeituraQrCodeComponent implements OnInit {
   }
 
   showQRScanner() {
-    QRScanner.initiate({
-      onResult: (result) => {
-        console.info(result);
-        // this.consultaMorador(result);
-        this.modalController.dismiss(result);
-      },
-      onTimeout: () => {
-        console.info('-- tempo esgotado')
-        this.countTentativas++;
-        console.log(this.countTentativas);
-      },
-      onError: (error) => {
-        console.error(error)
-      },
-      timeout: 10000,
+    const options: BarcodeScannerOptions = {
+      // preferFrontCamera: true,
+      // showFlipCameraButton: true,
+      showTorchButton: true,
+      torchOn: false,
+      prompt: 'Aproxime o QRCode da câmera',
+      resultDisplayDuration: 500,
+      formats: 'QR_CODE,PDF_417',
+      // orientation: 'landscape',
+    };
+
+    this.barcodeScanner.scan(options).then(barcodeData => {
+      console.log('Code', barcodeData.text);
+      
+      this.consultaMorador(barcodeData.text)
+    }).catch(err => {
+      console.log('Error', err);
     });
   }
 
